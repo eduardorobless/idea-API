@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-)k5!ve18#vzsxie5!$vj@pte@rv89&hqct5il$5k9kji!p%6)i
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework'
+    'rest_framework', 
+    'idea_api.apps.IdeaApiConfig'
 ]
 
 MIDDLEWARE = [
@@ -76,11 +77,14 @@ WSGI_APPLICATION = 'idea.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'idea',
+        'USER': 'eduardo', 
+        'PASSWORD': '112358Ed_', 
+        'HOST': '127.0.0.1', 
+        'PORT': '5432'
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -122,3 +126,25 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+
+}
+
+
+LOGIN_REDIRECT_URL = '/idea_api/account/profile/'
+LOGOUT_REDIRECT_URL= '/idea_api/login/'
+LOGIN_URL= '/idea_api/login/'
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp-mail.outlook.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'eduardo_robles14@hotmail.com'
+EMAIL_HOST_PASSWORD = '112358Ed_'
+
+
+DEFAULT_FROM_EMAIL = 'eduardo_robles14@hotmail.com'
