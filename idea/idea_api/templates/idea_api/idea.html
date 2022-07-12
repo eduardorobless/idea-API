@@ -1,0 +1,5 @@
+<form action="/idea_api/users/{{user.id}}/idea" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit">
+</form>
