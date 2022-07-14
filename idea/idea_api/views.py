@@ -41,8 +41,10 @@ def an_idea(request, **kwargs):
             idea_description = form.cleaned_data['description']
             idea = {'name':idea_name, 'description': idea_description, 'usuario': request.user.username}
             idea_db = None
+
+            idea_id= request.POST.get('idea_id')
             try:
-                idea_db = Idea.objects.get(name=idea_name)
+                idea_db = Idea.objects.get(pk=idea_id)
             except Idea.DoesNotExist:
                 print('idea does not exist, craeting it!')
 
@@ -80,5 +82,5 @@ def my_idea(request, **kwargs):
     elif request.method == 'GET':
         print('Trying to update the idea {}'.format(kwargs['idea_id']))
         form = IdeaForm(instance=idea)
-        return render(request, 'idea_api/idea.html', {'form': form})
+        return render(request, 'idea_api/idea.html', {'form': form, 'idea_id': kwargs['idea_id']})
 

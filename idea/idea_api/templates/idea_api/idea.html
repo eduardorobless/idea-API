@@ -1,5 +1,7 @@
 <form action="/idea_api/users/{{user.id}}/idea" method="post">
     {% csrf_token %}
     {{ form }}
+    {{ idea_id }}
+    <input type='hidden' value={{idea_id}} name='idea_id'>
     <input type="submit" value="Submit">
 </form>
