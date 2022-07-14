@@ -1,5 +1,7 @@
-from django import forms 
+from django.forms import ModelForm 
+from .models import Idea
 
-class IdeaForm(forms.Form):
-    idea_name = forms.CharField(label='The name of your idea', max_length=128)
-    idea_description = forms.CharField(widget=forms.Textarea())
+class IdeaForm(ModelForm):
+    class Meta:
+        model = Idea
+        fields = ['name', 'description']

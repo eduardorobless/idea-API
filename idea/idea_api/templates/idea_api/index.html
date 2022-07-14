@@ -10,19 +10,53 @@
     <h3>
         Welcome to your idea application, you are now logged in!
     </h3>
-    
+
     {% for idea in ideas %}
     <div>
-    {{ idea }} : {{idea.description}} 
-    <div>
-
+    {{ idea }} : {{idea.description}}
+    <span><a class='edit' data-idea={{idea.id}}>Edit</a></span>
+    <span><a class='delete' data-idea={{idea.id}}>Delete</a></span>
+    </div>
     {% endfor %}
 
-
     <a href='/idea_api/users/{{user.id}}/idea'>Got a new idea?</a>
-    <a href="/idea_api/"></a>
 
     <a href="/idea_api/logout/"> Logout</button>
+
+        <script>
+            const editIdeas = document.querySelectorAll('.edit')
+            const deleteIdeas = document.querySelectorAll('.delete')
+
+            
+            editIdeas.forEach(el => el.addEventListener('click', event => {
+                var url = 'http://127.0.0.1:8000/idea_api/users/{{user.id}}/idea/'+ event.target.getAttribute('data-idea') + '/'                
+                window.location = url;
+            }))
+
+            deleteIdeas.forEach(el => el.addEventListener('click', event => {
+                var url = 'http://127.0.0.1:8000/idea_api/users/{{user.id}}/idea/'+ event.target.getAttribute('data-idea')
+                console.log('Trying to delete an idea')
+                console.log(event.target.getAttribute('data-idea'))
+
+                var xhr = new XMLHttpRequest();
+                xhr.open('DELETE', url, true);
+                xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                xhr.onload = function () {
+                    if(xhr.status == '204') {
+                        console.log('Successfully idea has deleted')
+                        window.location = "http://127.0.0.1:8000/idea_api/users/{{user.id}}";
+                    }
+                    else {
+                        console.log('error trying to delete an idea')
+                    }
+                }
+                xhr.send()
+            }))
+        </script>
 </body>
+
+
+
+
 </html>
 

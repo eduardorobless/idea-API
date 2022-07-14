@@ -10,6 +10,8 @@ class Idea(models.Model):
         to_field='username',
         db_column='usuario_id'
     )
-    
+    class Meta:
+        models.UniqueConstraint(fields=['name'], name='unique_idea')
+
     def __str__(self):
         return self.name
