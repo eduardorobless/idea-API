@@ -1,27 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h3>
-        Welcome to your idea application, you are now logged in!
-    </h3>
+{% extends "idea_api/base.html" %}
 
+
+{% block main_ideas %}
     {% for idea in ideas %}
-    <div>
-    {{ idea }} : {{idea.description}}
-    <span><a class='edit' data-idea={{idea.id}}>Edit</a></span>
-    <span><a class='delete' data-idea={{idea.id}}>Delete</a></span>
-    </div>
+    <article class='idea_elem'>
+    <span id="idea_description">{{ idea }} : {{idea.description}}</span>
+        
+        <div id="idea_actions">
+            <span id="edit_idea"><a class='edit btn btn-primary' data-idea={{idea.id}}>Edit</a></span>
+            <span id="delete_idea"><a class='delete btn btn-danger' data-idea={{idea.id}}>Delete</a></span>
+        </div>
+    
+    </article>
     {% endfor %}
 
-    <a href='/idea_api/users/{{user.id}}/idea'>Got a new idea?</a>
+    <div id="general_options">
+        <a href='/idea_api/users/{{user.id}}/idea' class='btn btn-success'>Got a new idea?</a>
 
-    <a href="/idea_api/logout/"> Logout</button>
+        <a href="/idea_api/logout/" class='btn btn-dark'> Logout</a>
+    </div>
 
         <script>
             const editIdeas = document.querySelectorAll('.edit')
@@ -53,10 +50,4 @@
                 xhr.send()
             }))
         </script>
-</body>
-
-
-
-
-</html>
-
+{% endblock %}

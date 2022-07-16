@@ -1,7 +1,16 @@
+{% extends "idea_api/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block main_ideas%}
 <form action="/idea_api/users/{{user.id}}/idea" method="post">
     {% csrf_token %}
-    {{ form }}
-    {{ idea_id }}
+    {{form|crispy}}
     <input type='hidden' value={{idea_id}} name='idea_id'>
-    <input type="submit" value="Submit">
+
+    <div id='idea_navigation'>
+        <input type="submit" class="btn btn-primary" value="Submit">
+        <a href='javascript:history.back()' class="btn btn-secondary">Go back</a>
+    </div>
+
 </form>
+{% endblock%}
